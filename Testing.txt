@@ -1,0 +1,97 @@
+Testing 
+
+Testing code with curl command
+
+command
+cd "C:\Users\kayar\OneDrive\Documents\CSCE 3550\project1"
+
+command
+python project1.py
+
+output
+WARNING:  You must pass the application as an import string to enable 'reload' or 'workers'.
+
+command
+uvicorn project1:app --host 0.0.0.0 --port 8080 --reload
+
+output
+INFO:     Started server process [32372]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:58171 - "GET /.well-known/jwks.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58174 - "POST /auth?expired=false HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58176 - "POST /auth?expired=true HTTP/1.1" 200 OK
+
+In 2nd command prompt 
+
+command
+curl http://127.0.0.1:8080/.well-known/jwks.json
+
+output
+{"keys":[{"kid":"52aaae3c-5bb4-4a77-95c5-0825fda57a08","kty":"RSA","alg":"RS256","use":"sig","n":"kYttD4kZty6TtYm11ADlPgldccG05NTzrKnESYtTY1CX2tPWDU2uO0gGpiTksaa70eso_6XZ1zRhokR_F6swyIWpZ0DG01dqa2OVnEDpYm8rUz9bs-816yIoEkDe8IMzYatawcapjhRS2A8hm5WXQ52coZLBqwfqaNmZNcIUjp0itIbcWNB7YsiJ0zhg1GnKLyIM78dJs0aBYXhXBbur6PvnILtm8jnNTISO9f5kM3tvPhYDVgF6qm-RFz_k_KAhm4qjw5GeKbEncGsD2MSmRWoB9y_LZ0uPmkTOKTvOP97TgzmFnDYj2EUwx7AlAHWgdXerGt70-uolU5jDzX-cQoyHNNdgdwnaPTMgYJ-wEWLN1-J91_tOCH-W9S8XofiVayw1pXkIIEZFi5utMYl5dsJF_Uqy17BMn1F2WZaCC0RhZBxKiFxpeyj06p4emDo6FwRb8NibNeqLGMh3keYRV5Mmbm5jpFnm8-UuFZ5TM-wbm7aP1CyI9k5AmRUW5zFDn-w6V8hFDR6HEUL7yVmQ1VW3H7m37WhgHXuSQvQuSgMYAvk8z_TLh8lH-MwFrWa_I7MZfOAXfejre-YVz6s8vDFCvQxz7xaC2k-QRgvuPgxO5DPILYtyAUzXXO14lBD3DjR8pUz2jgoSbX8rfPRiTMCcFt4f-qOYyG52-KsLl5E","e":"AQAB"}]}
+
+command
+curl -X POST "http://127.0.0.1:8080/auth?expired=true"
+
+output
+{"token":"eyJhbGciOiJSUzI1NiIsImtpZCI6IjYyNDk2ODQ3LTY4MzQtNGJhZS1iNjQxLTlhYWUyMTk3YTQxOSIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0X3VzZXIiLCJpYXQiOjE3MzgxNzk1MTguNTI3ODE2OCwiZXhwIjoxNzM4MTc5MjE4LjUyNzgxNjh9.dSYlkU_NzZf_bYwxj00kq9lNVSqAPNHhAqM6jkNEyhAPUpLy1lKCboryVMZL2u54v3cTKPvovqWRMxPcIzqjAvPmqTGa4tkOOVcLVuMNXsqT31XQfJDJN0eFUlscbixQr2fB_HQP_6aIxM2YHuNFm0PU51I-x7DM-5nAn62d5TD1tkpr_5wdWNUp52a6GMX-fezDL1VwfwbXDIx1CoVvKdfagloFEzLEgML5fjSXmRLyIc_c5Zqj91zUNP4_cupbJrq_fZKjDdc3ZO3nafgra1iXb1O5_tQPyQVi33GOeRanPVK6dPYUWohnMZRVzajKSIrk6xkXTJT1P6uEVoiWzkeoLcasp-ixeT-18Ry74Q7ckQBL1Q87MKFJSrR6eIAbctfPi9LjC-A_GKivh0BDzuqGSuqoFuDSRGc8zvn6llaumQcNW4qK8hxdQ-U-JvJcZExbvJ_H4LkAVONFPuQrxlmgUAMdHhL9W2nBEcLVKgEFmnaGrJftszuQ-ixS78kU-08ftTpT6xA6WU352l7Dw59B_DbO-k6ucd3CfkAg0DZV1LK86N1gKsYgALFtynJD1setDtZvTIhpP3rIl2YqaAgl4DSwyUTpVla6YvTbI9q_Z7OLHcvGalB_mjCV3oU5YIFza0Vg9S9HL2eq3EYkxo8hEjQtkhfbrR320RDqb2M"}
+
+command
+curl -X POST "http://127.0.0.1:8080/auth?expired=false"
+
+output
+{"token":"eyJhbGciOiJSUzI1NiIsImtpZCI6IjUyYWFhZTNjLTViYjQtNGE3Ny05NWM1LTA4MjVmZGE1N2EwOCIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0X3VzZXIiLCJpYXQiOjE3MzgxNzk1MDYuNzkzMTA5MiwiZXhwIjoxNzM4MTc5ODA2Ljc5MzEwOTJ9.IiRzOODrm-HeA__IhvOl9iOo9sZX-t89TxSBeA_J88ctF0G3emILc7F7ZEEy9GsTz4rqRtxgn1SNNlEzb6ZEPVYT6Pfwqb_zw040rYy11qhF5IMH7NpUZIkmBblfUTs_rENUD7j72MhE8ATBoLU8y95dIjaoEOX8dLbLF943qrFlIVwkOMdziXtf6bKwm6E5TSbB047PHumaRQ2Wco97Z-eWjnO5JVSbjgPZV8QSBRmX1wM3gclSP34uGDalOH_0I1xFbCTbHJOp-CiHt_YjzCf5uPH4m_JC35HOOcp1nQ4y7K5_Jgt3kHkWNYQKJPgD1vTZrwrRFjLT2pPPJ6wkFxKUisr6XX8D6Bqy3ZFw596EDcuaelZ2WaeMIq98hSgNliZ8N5O0AjfgyZz-yC9O7jLv53SHQ5Ywoe6n27hjSe8zuSB7PUf95m0xJeSKu2rlgfFKBX2RD0jdw-VU8U0jO6Qq88BS5Dy9QaGsEkdSroxOlyi3YW2zIUY9VkgBF9NaYAa6q4ENUc03n2HSRfHnGzTYVk6mX7FzmDKtubjg1ZmB-fV0vrTQXhYDf1N-zzJcc8WviF-ETDr9yWpFcSV48nMORyQ0sYBPX9mPIeeNu2XfQ0UIFhkwWERAafhxrAu-4enUE3F5cvKK8oF21AfD-kUxvMrvOh4l67s-z1cuCUk"}
+
+Testing code with the test suites
+
+command
+cd "C:\Users\kayar\OneDrive\Documents\CSCE 3550\project1"
+
+command
+python project1.py
+
+output
+WARNING:  You must pass the application as an import string to enable 'reload' or 'workers'.
+
+command
+uvicorn project1:app --host 0.0.0.0 --port 8080 --reload
+
+output
+INFO:     Started server process [32372]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:58171 - "GET /.well-known/jwks.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58174 - "POST /auth?expired=false HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58176 - "POST /auth?expired=true HTTP/1.1" 200 OK
+
+In 2nd command prompt 
+
+command
+cd "C:\Users\kayar\OneDrive\Documents\CSCE 3550\project1"
+
+command
+pytest testcases.py
+
+
+Using GradeBot
+
+command
+cd "C:\Users\kayar\OneDrive\Documents\CSCE 3550\project 1"
+
+command
+python jwks_server.py
+
+output
+WARNING:  You must pass the application as an import string to enable 'reload' or 'workers'.
+
+command
+uvicorn jwks_server:app --host 0.0.0.0 --port 8080 --reload
+
+
+In 2nd command prompt 
+
+command
+cd "C:\Users\kayar\OneDrive\Documents\CSCE 3550\project 1"
+
+command
+.\gradebot.exe project1 (while it is running in other command prompt), got 65/65
